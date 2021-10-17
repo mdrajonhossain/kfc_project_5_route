@@ -26,7 +26,7 @@ function Checkout() {
   const ship = () => {
     return (
       <>
-        <div className="title">Shipping address</div>
+        <div className="title">Shipping address-a</div>
 
         <div class="form-group">
           <label for="inputAddress"></label>
