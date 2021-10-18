@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 function Checkout() {
   const [totalprice, setTotalprice] = useState("");
   const [shipshow, setShipshow] = useState(false);
+  const [quickcheckout, setQuickcheckout] = useState(false);
   const [checkoutproductlist, setCheckoutproductlist] = useState([]);
 
   useEffect(() => {
@@ -25,44 +26,49 @@ function Checkout() {
   }, [setInterval])
 
 
+  const userauthincate = () => {
+    return (
+      <>
+        {quickcheckout ?
+          <div className="title text-warning" style={{ cursor: 'pointer' }} onClick={() => setQuickcheckout(!quickcheckout)}>Authinticate User-</div>
+          : 
+          <div className="title text-warning" style={{cursor:'pointer'}} onClick={() => setQuickcheckout(!quickcheckout)}>Quick Check Out</div>
+        }
+        {quickcheckout ? ship() :
+          <div className="bg-info p-3">
+            <div className="title">User Login</div>
+            <div class="form-group">
+              <label for="inputAddress"></label>
+              <input type="text" class="form-control" id="inputAddress" placeholder="User Name" />
+            </div>
+            <div class="form-group">
+              <label for="inputAddress"></label>
+              <input type="password" class="form-control" id="inputAddress" placeholder="Password" />
+            </div><br />
+          </div>
+        }
+      </>
+    )
+  }
+
   const ship = () => {
     return (
       <>
-        <div className="title">Shipping address-b</div>
 
+        <div className="title">Quick Check Out</div>
         <div class="form-group">
           <label for="inputAddress"></label>
-          <input type="text" class="form-control" id="inputAddress" placeholder="Country/Region" />
+          <input type="text" class="form-control" id="inputAddress" placeholder="Your Full Name" />
+        </div>
+        <div class="form-group">
+          <label for="inputAddress"></label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Address" rows="3"></textarea>
         </div><br />
         <div class="row">
           <div class="col">
-            <input type="text" class="form-control" placeholder="First name (Optional)" />
+            <input type="text" class="form-control" placeholder="Phone Number" />
           </div>
-          <div class="col">
-            <input type="text" class="form-control" placeholder="Last name" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="inputAddress"></label>
-          <input type="text" class="form-control" id="inputAddress" placeholder="Address" />
-        </div>
-        <div class="form-group">
-          <label for="inputAddress"></label>
-          <input type="text" class="form-control" id="inputAddress" placeholder="Apartment, suite, etc..(optional)" />
-        </div><br />
-        <div class="row">
-          <div class="col">
-            <input type="text" class="form-control" placeholder="City" />
-          </div>
-          <div class="col">
-            <input type="text" class="form-control" placeholder="Postal Code" />
-          </div>
-        </div>
-
-        <div class="form-check">
-          <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..." />
-          Save this information for next time
-        </div><br />
+        </div> <br />
 
         <div class="form-group row">
           <div class="col-sm-10">
@@ -102,7 +108,7 @@ function Checkout() {
             <ul class="list-group" style={{ marginTop: '20px' }}>
               <li class="list-group-item ship">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked />
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
                   <label class="form-check-label ship" for="flexRadioDefault1" onClick={() => setShipshow(false)}>
                     Ship
                   </label>
@@ -118,8 +124,7 @@ function Checkout() {
               </li>
             </ul>
             <br />
-
-            {shipshow ? pickup() : ship()}
+            {shipshow ? pickup() : userauthincate()}
           </div>
 
           <div className="col-md-6 bg-light">
