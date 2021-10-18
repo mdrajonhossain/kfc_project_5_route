@@ -9,14 +9,16 @@ import { Link } from 'react-router-dom';
 function Checkout() {
   const [totalprice, setTotalprice] = useState("");
   const [shipshow, setShipshow] = useState(false);
+  const [checkoutproductlist, setCheckoutproductlist] = useState([]);
 
   useEffect(() => {
     setInterval(function () {
       try {
         var addtocart = JSON.parse(localStorage.getItem("addtocart") || "[]");
-        const cropt = addtocart.map((data) => data.price * data.qunt)
+        setCheckoutproductlist(addtocart);
+        const cropt = addtocart.map((data) => data.price * data.qunt);
         const total = cropt.reduce((a, b) => a + b);
-        setTotalprice(total)
+        setTotalprice(total);
       } catch (err) {
       }
     }, 100);
@@ -26,7 +28,7 @@ function Checkout() {
   const ship = () => {
     return (
       <>
-        <div className="title">Shipping address-a</div>
+        <div className="title">Shipping address-b</div>
 
         <div class="form-group">
           <label for="inputAddress"></label>
@@ -117,12 +119,39 @@ function Checkout() {
             </ul>
             <br />
 
-          {shipshow ? pickup() : ship()}
+            {shipshow ? pickup() : ship()}
           </div>
 
-
-
-          <div className="col-md-6 bg-light">Total Price: {totalprice}</div>
+          <div className="col-md-6 bg-light">
+            <br />
+            <table class="table">
+              <tbody>
+                {checkoutproductlist.map((data) => {
+                  return (
+                    <tr>
+                      <td><img src={data.img} width="60px" height="30px" /></td>
+                      <td style={{ textAlign: 'right' }}>{data.qunt * data.price}</td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+              <tr>
+                <td style={{ width: '40%', padding: '15px', lineHeight: '40px' }}>
+                  Subtotal <br />
+                  {shipshow ? "Pick Up a" : "Shipping"}
+                </td>
+                <td style={{ textAlign: 'right', lineHeight: '40px' }}>
+                  taka{totalprice}
+                  <br />
+                  {shipshow ? <div style={{ fontSize: '13px' }}>Free</div> : <div style={{ fontSize: '13px' }}>Calculated at next step</div>}
+                </td>
+              </tr>
+              <tr>
+                <td>Total</td>
+                <td style={{ textAlign: 'right' }}><h4>Taka {totalprice}</h4></td>
+              </tr>
+            </table>
+          </div>
         </div>
       </div>
 
