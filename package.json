@@ -2,15 +2,19 @@
   "name": "dhakasolition",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://currymeal.ae/graph/api",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "aos": "^2.3.4",
+    "axios": "^0.24.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-hook-form": "^7.18.1",
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
+    "react-toastify": "^8.0.3",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

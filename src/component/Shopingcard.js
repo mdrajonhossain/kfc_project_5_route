@@ -4,18 +4,20 @@ import React, { useState, useEffect } from 'react';
 import Fooder from './Fooder';
 import Menubar from './Menubar';
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function Shopingcard() {
-  const ref = React.useRef();
+  // const ref = React.useRef();
   const [addtocartdata, setAddtocartdata] = useState([]);
   const [producttotal, setProducttotal] = useState("");
-
 
   const productdelte = (e) => {
     const addtocart = JSON.parse(localStorage.getItem("addtocart"));
     addtocart.splice(e, 1);
     localStorage.setItem('addtocart', JSON.stringify(addtocart));
+    toast("Item Remove")
   }
 
 
@@ -42,6 +44,46 @@ function Shopingcard() {
 
 
 
+  useEffect(() => {
+    fetch('/productCategories', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Auth-Key': 'aHR0cHN+Y3VycnltZWFsLmFlfmFwaQ',
+        'X-Auth-Email': 'info@currymeal.ae'
+      },
+      body: {},
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.content);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }, []);
+
+  const increment = (e) => {
+    var addtocart = JSON.parse(localStorage.getItem("addtocart") || "[]");
+    var index = addtocart.findIndex(x => x.product_name === e.product_name);
+    addtocart[index].qunt = addtocart[index].qunt + 1;
+    localStorage.setItem("addtocart", JSON.stringify(addtocart));
+  }
+
+  const decrment = (e) => {
+    var addtocart = JSON.parse(localStorage.getItem("addtocart") || "[]");
+    var index = addtocart.findIndex(x => x.product_name === e.product_name);
+    if (addtocart[index].qunt == 1) {
+    } else {
+      addtocart[index].qunt = addtocart[index].qunt - 1;
+      localStorage.setItem("addtocart", JSON.stringify(addtocart));
+    }
+  }
+
+  const continueback = () => {
+    window.history.back();
+  }
 
 
   return (
@@ -50,11 +92,10 @@ function Shopingcard() {
       <Menubar />
 
 
-      <div className="container text-center p-3">Your Cart</div>
-      <Link to="/menu"><div className="container text-center" style={{ fontSize: '14px', cursor: 'pointer' }}>Continue shopping</div></Link>
+      <div className="container text-center text-info" style={{ fontSize: '18px', marginTop: '20px', cursor: 'pointer' }} onClick={continueback}>Continue Shopping</div>
 
       <div className="container" style={{ marginTop: "10px" }}>
-        <table class="table">
+        <table class="table" style={{background:'#edead6', color:'#742f81'}}>
           <thead>
             <tr>
               <th scope="col">Product</th>
@@ -74,20 +115,38 @@ function Shopingcard() {
                     {data.product_name}<br />
                     <div className="text-danger" onClick={() => productdelte(index)} style={{ cursor: 'pointer' }}>Remove</div>
                   </td>
-                  <td>Tk. {data.price}</td>
-                  <td>{data.qunt}</td>
-                  <td style={{ textDecoration: 'none' }}>{data.qunt * data.price}</td>
+                  <td>৳{data.price}</td>
+                  <td>
+                    <div class="btn-group mr-2" role="group" aria-label="Second group">
+                      <button type="button" class="btn btn-secondary" onClick={() => decrment(data)}>-</button>
+                      <button type="button" class="btn btn-light">{data.qunt}</button>
+                      <button type="button" class="btn btn-secondary" onClick={() => increment(data)}>+</button>
+                    </div>
+
+                  </td>
+                  <td style={{ textDecoration: 'none' }}>৳{data.qunt * data.price}</td>
                 </tr>
               )
             })}
           </tbody>
           <tr>
-            <td colspan="5" style={{ textAlign: 'right', color: 'green', fontWeight: 'bold' }}>Subtotal = {producttotal}/=</td>
+            <td colspan="5" style={{ textAlign: 'right', color: '#582352', padding:'10px', fontWeight: 'bold' }}>Subtotal ৳{producttotal} </td>
           </tr>
         </table>
         <Link to="/product_checkout" style={{ textDecoration: 'none' }}><div className="container checkout">CHECK OUT</div></Link>
       </div>
 
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
 
       <Fooder />
     </>

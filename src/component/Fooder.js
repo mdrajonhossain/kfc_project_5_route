@@ -25,9 +25,9 @@ function Fooder() {
 
           <div className="row fooder_so">
             <div className="col-md-4 fooder_social_img" style={{ marginTop: '10px' }}>
-              <img src="./img/facebook.png" />
-              <img src="./img/instagram.jpg" />
-              <img src="./img/youtube.png" />
+              <img src="../img/facebook.png" />
+              <img src="../img/instagram.jpg" />
+              <img src="../img/youtube.png" />
             </div>
 
             <div className="col-md-4" style={{ marginTop: '10px' }}>Developed By : </div>

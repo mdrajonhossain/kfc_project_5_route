@@ -13,7 +13,7 @@ function Header() {
       <div className="header">
         <Link to="/"><div className="logo"><img src="https://kfcbd.com/frontend/Content/OnlineOrderingImages/Shared/md/logo_kfc.svg" width="50px" /></div></Link>
         <div className="singin">SIGN IN</div>
-        <div className="toggle" onClick={() => setMobilesitebartaggle(!mobilesitebartaggle)}><img src="./toggle.jpg" /></div>
+        <div className="toggle" onClick={() => setMobilesitebartaggle(!mobilesitebartaggle)}><img src="../toggle.jpg" /></div>
       </div>
 
       {mobilesitebartaggle &&
@@ -25,7 +25,7 @@ function Header() {
               <h1>GUEST!</h1>
             </div>
             <div className="profile" onClick={() => setMobilesitebartaggle(!mobilesitebartaggle)}>
-              <img src="./img/profile.jpg" />
+              <img src="../img/profile.jpg" />
             </div>
           </div>
 

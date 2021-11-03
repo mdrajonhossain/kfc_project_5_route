@@ -33,10 +33,10 @@ function Menubar() {
     <>
       <div className="main_menubar" id="main_menubar">
       <div className="menubar">
-        <div className="links"><Link to="/menu" style={{color:'white', textDecoration: 'none'}}><img src="./img/delivery.png" style={{width:"45px", height:'46px'}}/>Delivery</Link></div>
-        <div className="links"><img src="./img/takeaway.png" style={{width:"45px", height:'38px'}}/>Takeaway</div>
-        <div className="links"><img src="./img/dining.png" style={{width:"45px", height:'38px'}}/>Dine-in</div>
-        <div className="links"><Link to="/addtocart" style={{color:'green', textDecoration: 'none'}}><img src="./img/shoping.png" style={{width:"45px", height:'38px'}}/><b>{addtocartdatacount}</b></Link></div>
+        <div className="links"><Link to="/menu" style={{color:'white', textDecoration: 'none'}}><img src="../img/delivery.png" style={{width:"45px", height:'46px'}}/>Delivery</Link></div>
+        <div className="links"><img src="../img/takeaway.png" style={{width:"45px", height:'38px'}}/>Takeaway</div>
+        <div className="links"><img src="../img/dining.png" style={{width:"45px", height:'38px'}}/>Dine-in</div>
+        <div className="links"><Link to="/addtocart" style={{color:'green', textDecoration: 'none'}}><img src="../img/shoping.png" style={{width:"45px", height:'38px'}}/><b>{addtocartdatacount}</b></Link></div>
       </div>
         
       </div>
