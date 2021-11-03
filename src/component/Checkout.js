@@ -162,7 +162,7 @@ function Checkout() {
                 </td>
               </tr>
               <tr>
-                <td>Total-</td>
+                <td>Total=</td>
                 <td style={{ textAlign: 'right' }}><h4>Taka {totalprice}</h4></td>
               </tr>
             </table>
