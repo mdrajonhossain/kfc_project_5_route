@@ -52,6 +52,7 @@ function Menu({ match }) {
   // console.log(match.params.id)
 
   useEffect(() => {
+    console.log(match.params.id)
     fetch('/products', {
       method: 'POST',
       credentials: 'include',
@@ -60,7 +61,7 @@ function Menu({ match }) {
         'X-Auth-Key': 'aHR0cHN+Y3VycnltZWFsLmFlfmFwaQ',
         'X-Auth-Email': 'info@currymeal.ae'
       },
-      body: { "main": match.params.id },
+      body: { "category_id": match.params.id },
     })
       .then(response => response.json())
       .then(data => {
@@ -115,12 +116,12 @@ function Menu({ match }) {
           {productcard.map((productcartdata) => {
             return (
               <div class="col text-light" data-aos="zoom-in">
-                <div class="card" key="unique" style={{backgroundColor:'#adbcc1'}}>
-                  <img src={productcartdata.thumbnail_image} class="card-img-top" data-aos="flip-right" alt="..." style={{ height: '287px', width:'92%', height:'287px', margin:'0 auto', marginTop:'10px' }} />
+                <div class="card" key="unique">
+                  <img src={productcartdata.thumbnail_image} class="card-img-top" data-aos="flip-right" alt="..." style={{ height: '287px', width: '92%', height: '287px', margin: '0 auto', marginTop: '10px' }} />
                   <div class="card-body">
                     <h6 class="card-title">{productcartdata.name}</h6>
                     <h6 class="card-title text-righ">৳{productcartdata.price_stock_chart[0].s_p}</h6>
-                    <h6 class="card-title text-light text-center p-2 addtocart" onClick={() => addtocardmethod(productcartdata)} style={{backgroundColor:'#4d6d76'}}>
+                    <h6 class="card-title text-light text-center p-2 addtocart" onClick={() => addtocardmethod(productcartdata)} style={{ backgroundColor: '#4d6d76' }}>
                       Add To Cart
                     </h6>
                   </div>

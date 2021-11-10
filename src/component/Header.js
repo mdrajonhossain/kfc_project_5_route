@@ -1,18 +1,48 @@
 import '../App.css';
 import { Link } from "react-router-dom";
 import React, { useState } from 'react';
+import { useEffect } from 'react/cjs/react.development';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function Header() {
   const [mobilesitebartaggle, setMobilesitebartaggle] = useState(false);
+  const [login, setLogin] = useState(false);
+  
 
+  useEffect(() => {
+    setInterval(function () {
+      try {
+        const token = localStorage.getItem("token")
+        if(token){
+          setLogin(!login);
+        }        
+      } catch (err) {
+      }
+    }, 100);
+  }, [])
+
+
+
+
+  const logoutfun = () => {
+    var user = localStorage.removeItem("token");
+      toast("Log out");
+      setLogin(false)
+      
+  }
+
+  const loginfun = ()=>{
+    alert("Login")
+  }
 
 
   return (
     <>
       <div className="header">
         <Link to="/"><div className="logo"><img src="https://kfcbd.com/frontend/Content/OnlineOrderingImages/Shared/md/logo_kfc.svg" width="50px" /></div></Link>
-        <div className="singin">SIGN IN</div>
+        <div className="singin">{login ? <span onClick={() => logoutfun()}>Logout</span>: <span onClick={() => loginfun()}>Login</span>}</div>
         <div className="toggle" onClick={() => setMobilesitebartaggle(!mobilesitebartaggle)}><img src="../toggle.jpg" /></div>
       </div>
 
@@ -44,6 +74,20 @@ function Header() {
 
         </div>
       }
+
+
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+
     </>
   );
 }
